@@ -9,7 +9,7 @@ export class DictionaryEntryService {
 
   getWord(language: string, wordId: string) {
     return this._http.get(
-      `dictapi/entries/${language}/${wordId.toLowerCase()}`,
+      `${environment.api}/entries/${language}/${wordId.toLowerCase()}`,
       {
         headers: new HttpHeaders()
           .set('app_id', environment.appId)
