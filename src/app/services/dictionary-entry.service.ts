@@ -1,16 +1,20 @@
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-
+import { environment } from '../../environments/environment';
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class DictionaryEntryService {
+  constructor(private _http: HttpClient) {}
 
-  constructor(private _http:HttpClient) { }
-
-  getWord(language:string, wordId: string){
-    return this._http.get(`dictapi/entries/${language}/${wordId.toLowerCase()}`, {
-      headers: new HttpHeaders().set('app_id','48c9427e').set('app_key', '525776f887cf5d407d009d64f9fde736')
-    })
+  getWord(language: string, wordId: string) {
+    return this._http.get(
+      `dictapi/entries/${language}/${wordId.toLowerCase()}`,
+      {
+        headers: new HttpHeaders()
+          .set('app_id', environment.appId)
+          .set('app_key', environment.appkey),
+      }
+    );
   }
 }
