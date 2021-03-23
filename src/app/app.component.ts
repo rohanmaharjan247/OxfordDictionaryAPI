@@ -37,7 +37,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   ngOnInit() {}
 
   ngAfterViewInit() {}
-
+    //"start": "ng serve --ssl true --ssl-cert ssl\\server.crt --ssl-key=ssl\\server.key",
   getWord() {
     this.loading = true;
     this.groupedMeanings = [];
