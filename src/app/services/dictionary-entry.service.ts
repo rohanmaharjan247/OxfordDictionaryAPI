@@ -9,7 +9,7 @@ export class DictionaryEntryService {
 
   getWord(language: string, wordId: string) {
     return this._http.get(
-      `${environment.api}/entries/${language}/${wordId.toLowerCase()}`,
+      `https://od-api.oxforddictionaries.com/api/v2/entries/${language}/${wordId.toLowerCase()}`,
       {
         headers: new HttpHeaders()
           .set('app_id', environment.appId)
