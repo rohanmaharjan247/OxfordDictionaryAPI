@@ -94,7 +94,8 @@
           },
           "configurations": {
             "production": {
-              "browserTarget": "DictionaryApi:build:production"
+              "browserTarget": "DictionaryApi:build:production",
+              "proxyConfig": "./proxy.conf.json"
             }
           }
         },
