@@ -1,0 +1,10 @@
+{
+  "/dictapi": {
+    "target": "https://od-api.oxforddictionaries.com/api/v2",
+    "secure": true,
+    "changeOrigin": true,
+    "pathRewrite": {
+      "^/dictapi": ""
+    }
+  }
+}
