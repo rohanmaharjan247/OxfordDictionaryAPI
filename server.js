@@ -4,7 +4,7 @@ const path = require("path");
 const axios = require('axios');
 const bodyParser = require("body-parser");
 const app = express();
-const port = process.env.PORT || 8082;
+const port = process.env.PORT || 8081;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
@@ -57,4 +57,6 @@ app.get(`/dictionarysearch/:language/:wordId`, async (req, res) => {
 });
 
 // Start the app by listening on the default Heroku port
-app.listen(port);
+app.listen(port, () =>{
+  console.log("App listening to:", )
+});
