@@ -34,7 +34,8 @@ export class AppComponent implements OnInit, AfterViewInit {
   groupedMeanings: any;
   constructor(private _dictEntryService: DictionaryEntryService) {}
 
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   ngAfterViewInit() {}
     //"start": "ng serve --ssl true --ssl-cert ssl\\server.crt --ssl-key=ssl\\server.key",
