@@ -4,7 +4,7 @@ const path = require("path");
 const axios = require('axios');
 const bodyParser = require("body-parser");
 const app = express();
-const port = process.env.port || 8082;
+const port = process.env.PORT || 8082;
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
