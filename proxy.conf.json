@@ -1,7 +1,7 @@
 {
   "/dictapi": {
-    "target": "https://od-api.oxforddictionaries.com/api/v2",
-    "secure": true,
+    "target": "http://localhost:8083",
+    "secure": false,
     "changeOrigin": true,
     "pathRewrite": {
       "^/dictapi": ""

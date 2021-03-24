@@ -9,7 +9,6 @@ const port = process.env.PORT || 8081;
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 
-const dictionaryApi = "https://od-api.oxforddictionaries.com/api/v2";
 
 // const whitelist = ['https://od-api.oxforddictionaries.com/api/v2'];
 
@@ -35,25 +34,6 @@ app.use("/", express.static(__dirname + "/dist/DictionaryApi"));
 app.get('/*', function(req,res) {
 
 res.sendFile(path.join(__dirname+'/dist/DictionaryApi/index.html'));
-});
-
-app.get(`/dictionarysearch/:language/:wordId`, async (req, res) => {
-
-  const language = req.params.language;
-  const wordId = req.params.wordId;
-
-  const app_id = req.headers.app_id;
-  const app_key = req.headers.app_key;
-
-  const apiUrl = `${dictionaryApi}/entries/${language}/${wordId.toLowerCase()}`;
-
-  const response = await axios.get(apiUrl, {
-    headers:  {
-      'app_id': app_id,
-      'app_key': app_key
-    }
-  })
-   res.send(response.data);
 });
 
 // Start the app by listening on the default Heroku port

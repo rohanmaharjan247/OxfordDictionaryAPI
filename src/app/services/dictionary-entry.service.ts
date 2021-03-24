@@ -15,8 +15,7 @@ export class DictionaryEntryService {
 
   getWord(language: string, wordId: string) {
     return this._http.get(
-
-      `${this.apiUrl}dictionarysearch/${language}/${wordId}`,
+      `${environment.api}/dictionarysearch/${language}/${wordId.toLowerCase()}`,
       {
         headers: new HttpHeaders()
           .set('app_id', environment.appId)
@@ -24,7 +23,6 @@ export class DictionaryEntryService {
       }
     );
   }
-
   // test() {
   //   return this._http.get(`${this.apiUrl}dictionarysearch/en-gb/example`, {
   //     headers: new HttpHeaders()
