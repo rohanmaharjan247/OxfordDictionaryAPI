@@ -1,8 +1,6 @@
 //Install express server
 const express = require("express");
 const path = require("path");
-const cors = require("cors");
-const https = require('https');
 const axios = require('axios');
 const bodyParser = require("body-parser");
 const app = express();
@@ -32,17 +30,12 @@ const dictionaryApi = "https://od-api.oxforddictionaries.com/api/v2";
 //app.use(cors(corsOptions));
 
 // Serve only the static files form the dist directory
-app.use("/", express.static("dist/DictionaryApi"));
+app.use("/", express.static(__dirname + "/dist/DictionaryApi"));
 
-// app.get('/*', function(req,res) {
+app.get('/*', function(req,res) {
 
-// res.sendFile(path.join(__dirname+'/dist/DictionaryApi/index.html'));
-// });
-
-app.get("/test", (req, res) => {
-  res.send({ message: "Ok", result: true });
+res.sendFile(path.join(__dirname+'/dist/DictionaryApi/index.html'));
 });
-
 
 app.get(`/dictionarysearch/:language/:wordId`, async (req, res) => {
 
@@ -64,6 +57,4 @@ app.get(`/dictionarysearch/:language/:wordId`, async (req, res) => {
 });
 
 // Start the app by listening on the default Heroku port
-app.listen(port, () => {
-  console.log("app is started and listening to port " + port);
-});
+app.listen(port);
