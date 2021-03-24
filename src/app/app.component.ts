@@ -34,11 +34,10 @@ export class AppComponent implements OnInit, AfterViewInit {
   groupedMeanings: any;
   constructor(private _dictEntryService: DictionaryEntryService) {}
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   ngAfterViewInit() {}
-    //"start": "ng serve --ssl true --ssl-cert ssl\\server.crt --ssl-key=ssl\\server.key",
+  //"start": "ng serve --ssl true --ssl-cert ssl\\server.crt --ssl-key=ssl\\server.key",
   getWord() {
     this.loading = true;
     this.groupedMeanings = [];
@@ -46,35 +45,41 @@ export class AppComponent implements OnInit, AfterViewInit {
     this.results = [];
     this._dictEntryService.getWord('en-gb', this.word.value).subscribe(
       (data: any) => {
-        this.results = data.results;
-        data.results.forEach((result) => {
-          result.lexicalEntries.forEach((lexicalEntry) => {
-            this.lexicalCategory.push(lexicalEntry.lexicalCategory.text);
-            lexicalEntry.entries.forEach((entry) => {
-              this.pronunications = entry.pronunciations;
-              entry.senses.forEach((sense) => {
-                this.meanings.push(sense.definitions);
-                this.meaningsandlexicals.push({
-                  meaning: sense.definitions,
-                  lexicals: lexicalEntry.lexicalCategory.text,
+        try {
+          this.results = data.results;
+          if(data.results!=undefined && data.results!=null && data.results.length>0){
+            data.results.forEach((result) => {
+              result.lexicalEntries.forEach((lexicalEntry) => {
+                this.lexicalCategory.push(lexicalEntry.lexicalCategory.text);
+                lexicalEntry.entries.forEach((entry) => {
+                  this.pronunications = entry.pronunciations;
+                  entry.senses.forEach((sense) => {
+                    this.meanings.push(sense.definitions);
+                    this.meaningsandlexicals.push({
+                      meaning: sense.definitions,
+                      lexicals: lexicalEntry.lexicalCategory.text,
+                    });
+                  });
                 });
               });
             });
-          });
-        });
-        this.meaning = this.meanings.join('-');
-        this.groupByLexicals();
-        this.loading = false;
+            this.meaning = this.meanings.join('-');
+            this.groupByLexicals();
+          }
+          else{
+            alert(`${this.word.value} not found in the dictionary`);
+          }
+          this.loading = false;
+        } catch (err) {
+          console.error(err);
+          this.reset();
+        }
       },
       (err) => {
         console.error(err);
-        this.meaningsandlexicals = [];
-        this.groupedMeanings = [];
-        this.word.setValue('');
-        this.results = [];
-        this.loading = false;
-        if(err.status === 404){
-          alert('Given Word Not Found')
+        this.reset();
+        if (err.status === 404) {
+          alert(`${this.word.value} not found in the dictionary`);
         }
       }
     );
@@ -101,8 +106,21 @@ export class AppComponent implements OnInit, AfterViewInit {
         ),
         toArray()
       )
-      .subscribe((data) => {
-        this.groupedMeanings = data;
-      });
+      .subscribe(
+        (data) => {
+          this.groupedMeanings = data;
+        },
+        (err) => {
+          console.error(err);
+        }
+      );
+  }
+
+  reset() {
+    this.meaningsandlexicals = [];
+    this.groupedMeanings = [];
+    this.word.setValue('');
+    this.results = [];
+    this.loading = false;
   }
 }
