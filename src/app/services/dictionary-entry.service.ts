@@ -15,7 +15,7 @@ export class DictionaryEntryService {
 
   getWord(language: string, wordId: string) {
     return this._http.get(
-      `${environment.api}/dictionarysearch/${language}/${wordId.toLowerCase()}`,
+      `${this.apiUrl}dictionarysearch/${language}/${wordId.toLowerCase()}`,
       {
         headers: new HttpHeaders()
           .set('app_id', environment.appId)

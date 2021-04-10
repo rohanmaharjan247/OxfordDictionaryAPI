@@ -8,6 +8,7 @@
     "test": "ng test",
     "lint": "ng lint",
     "e2e": "ng e2e",
+    "dev": "ng build && nodemon server.js",
     "heroku-postbuild": "ng build --prod"
   },
   "engines": {
@@ -31,6 +32,7 @@
     "global": "^4.4.0",
     "gulp-cli": "^2.3.0",
     "node-fetch": "^2.6.1",
+    "nodemon": "^2.0.7",
     "rxjs": "~6.6.0",
     "semantic-ui-css": "^2.4.1",
     "tslib": "^2.0.0",

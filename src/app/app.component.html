@@ -1,28 +1,38 @@
 <div class="ui raised very padded text container segment">
   <h1 class="ui header">Oxford Dictionary API</h1>
   <div class="ui fluid icon input" [class.loading]="loading">
-    <input type="text" placeholder="Search..." [formControl]="word" (keydown.Enter)="getWord()">
+    <input
+      type="text"
+      placeholder="Search..."
+      [formControl]="word"
+      (keydown.Enter)="getWord()"
+    />
     <i class="circular search link icon" (click)="getWord()"></i>
   </div>
   <ng-container *ngIf="results">
-    <div class="ui piled segment" *ngIf="results.length>0" style="z-index: 1;">
+    <div class="ui piled segment" *ngIf="results.length > 0" style="z-index: 1">
       <h4 class="ui header">
+        <i
+          class="circular play icon"
+          (click)="playAudio()"
+          title="Hear word"
+        ></i>
         <div class="content">
-          {{results[0].word | titlecase}}
-          ({{pronunications[0].phoneticSpelling}})
+          {{ results[0].word | titlecase }}
+          <div class="sub header">({{ pronunications[0].phoneticSpelling }})</div>
         </div>
+       
       </h4>
       <div *ngFor="let group of groupedMeanings">
         <h4 class="ui horizontal divider header">
-          <i>{{group.key}}</i>
+          <i>{{ group.key }}</i>
         </h4>
         <ol>
           <li *ngFor="let meanings of group.values">
-            {{meanings.meaning}}
+            {{ meanings.meaning }}
           </li>
         </ol>
       </div>
     </div>
   </ng-container>
-
 </div>

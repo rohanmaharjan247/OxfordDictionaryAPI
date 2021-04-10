@@ -32,6 +32,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   pronunications = [];
   lexicalCategory = [];
   groupedMeanings: any;
+  audioPronunciation = '';
   constructor(private _dictEntryService: DictionaryEntryService) {}
 
   ngOnInit() {}
@@ -47,12 +48,14 @@ export class AppComponent implements OnInit, AfterViewInit {
       (data: any) => {
         try {
           this.results = data.results;
+          console.log(data.results);
           if(data.results!=undefined && data.results!=null && data.results.length>0){
             data.results.forEach((result) => {
               result.lexicalEntries.forEach((lexicalEntry) => {
                 this.lexicalCategory.push(lexicalEntry.lexicalCategory.text);
                 lexicalEntry.entries.forEach((entry) => {
                   this.pronunications = entry.pronunciations;
+                  this.audioPronunciation = entry.pronunciations[0].audioFile;
                   entry.senses.forEach((sense) => {
                     this.meanings.push(sense.definitions);
                     this.meaningsandlexicals.push({
@@ -114,6 +117,13 @@ export class AppComponent implements OnInit, AfterViewInit {
           console.error(err);
         }
       );
+  }
+
+  playAudio(){
+    let audio = new Audio();
+    audio.src = this.audioPronunciation;
+    audio.load();
+    audio.play();
   }
 
   reset() {
