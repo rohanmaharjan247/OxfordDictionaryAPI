@@ -16,10 +16,13 @@
           class="circular play icon"
           (click)="playAudio()"
           title="Hear word"
+          *ngIf="audioPronunciation!=''"
         ></i>
         <div class="content">
           {{ results[0].word | titlecase }}
-          <div class="sub header">({{ pronunications[0].phoneticSpelling }})</div>
+          <ng-container *ngIf="pronunications!=undefined">
+            <div class="sub header" *ngIf="pronunications.length>0">({{ pronunications[0].phoneticSpelling }})</div>
+          </ng-container>
         </div>
        
       </h4>

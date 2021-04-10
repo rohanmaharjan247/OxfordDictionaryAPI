@@ -47,15 +47,22 @@ export class AppComponent implements OnInit, AfterViewInit {
     this._dictEntryService.getWord('en-gb', this.word.value).subscribe(
       (data: any) => {
         try {
-          this.results = data.results;
-          console.log(data.results);
-          if(data.results!=undefined && data.results!=null && data.results.length>0){
+          this.results = data.results;        
+          if (
+            data.results != undefined &&
+            data.results != null &&
+            data.results.length > 0
+          ) {
             data.results.forEach((result) => {
               result.lexicalEntries.forEach((lexicalEntry) => {
                 this.lexicalCategory.push(lexicalEntry.lexicalCategory.text);
                 lexicalEntry.entries.forEach((entry) => {
                   this.pronunications = entry.pronunciations;
-                  this.audioPronunciation = entry.pronunciations[0].audioFile;
+                  if (
+                    entry.pronunciations != undefined &&
+                    entry.pronunciations.length > 0
+                  )
+                    this.audioPronunciation = entry.pronunciations[0].audioFile;
                   entry.senses.forEach((sense) => {
                     this.meanings.push(sense.definitions);
                     this.meaningsandlexicals.push({
@@ -68,8 +75,7 @@ export class AppComponent implements OnInit, AfterViewInit {
             });
             this.meaning = this.meanings.join('-');
             this.groupByLexicals();
-          }
-          else{
+          } else {
             alert(`${this.word.value} not found in the dictionary`);
           }
           this.loading = false;
@@ -119,7 +125,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       );
   }
 
-  playAudio(){
+  playAudio() {
     let audio = new Audio();
     audio.src = this.audioPronunciation;
     audio.load();
