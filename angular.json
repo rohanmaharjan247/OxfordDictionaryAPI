@@ -53,7 +53,7 @@
               "src/assets",
               {
                 "glob": "*",
-                "input": "./dictionary_server/dictionary-api",
+                "input": "./api",
                 "output": "assets/dictionary-api"
               }
             ],
